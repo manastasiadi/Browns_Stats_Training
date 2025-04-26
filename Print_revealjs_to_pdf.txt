@@ -1,0 +1,9 @@
+Print revealjs slides
+Open Git BASH app. Provide the working directory
+Then use decktape and provide the name of the html file and the name of the pdf file to be printed.
+
+e102010@LAP003965 MINGW64 ~
+$ cd 'C:\Users\e102010\OneDrive - Cranfield University\Documents\Bioinformatics_MSc\Teaching\Academic Year 2024-2025\Stats_EDA_module\Lectures\Tuesday'
+
+
+$ decktape Essential_Statistics_A.html Essential_Statistics_A.pdf
