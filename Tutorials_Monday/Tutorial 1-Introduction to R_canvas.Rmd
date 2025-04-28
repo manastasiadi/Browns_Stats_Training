@@ -1,0 +1,753 @@
+---
+title: "Introduction to R Part1" 
+author: "Maria Anastasiadi"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Exploratory Data Analysis and Essential Statistics Module Aims:
+
+-   Introduce R as a programming language
+-   Employ R to handle, store, visualise and analyse your data
+-   Introduce methods for Exploratory Data Analysis and Statistical modelling
+
+## R Markdown
+
+For our tutorials we will be using R markdown documents (`.Rmd`) like this one! [Markdown] is a simple formatting syntax for authoring HTML, PDF, and MS Word documents (<http://rmarkdown.rstudio.com>).
+
+**Prerequisites**: To use R markdown you need the **rmarkdown** package, but you don't need to explicitly install it or load it, as RStudio automatically does both when needed.
+
+When you open an `.Rmd`, you get a notebook interface where code and output are interleaved.
+
+R markdown documents contain three important types of content:
+
+-   An (optional) YAML header surrounded by 3 dashes `---`s which signal the start and end of the document.YAML is a popular programming language because it is designed to be easy to read and understand and is often used for writing configuration files.
+-   Chunks of R code surrounded by \`\`\`.
+-   Text mixed with simple text formatting like `# heading` and
+    `_italics_`.
+
+You can add R code in chunks by clicking at the green button in the tool
+bar or by typing *Ctrl+Alt+I*.
+
+```{r}
+# Print something in the console
+print("My first R code")
+```
+
+To execute a chunk of code you can place the cursor inside the chunk and
+press *Ctrl+Shift+Enter*. Alternatively click on the Run icon in the
+toolbar and select *Run Current Chunk* from the drop-down menu, or press
+the green arrow button on the top right side of the chunk. Remember that
+whatever comes after the `#` symbol is a comment and will not be
+executed. <br> You can also run the whole script by clicking the Run
+icon and selecting *Run All* from the drop down menu.
+
+## Producing Reports with RMarkdown
+
+To produce a complete report containing all text, code, and results,
+click the **Knit** button in the tool bar or press *Ctrl+Shift+K*.
+
+![](Pictures%20for%20RMarkdown%20Docs/RMarkdown2.png)
+
+You can also do this programmatically with
+`rmarkdown::render("Tutorial 1-Introduction to R.Rmd")`. This will
+display the report in the viewer pane, and create a self-contained HTML
+file that you can share with others, as I have done in this course. <br>
+<br> On Canvas you can find a *RMarkdown CheatSheet* to get you started
+on the basics.
+
+# Using the R Console
+
+Individual commands in R can be executed directly via the console. R is
+an *interpreted language*. This means you can run code without any
+compiler, as R interprets the code making development easier. One of the
+simplest things you can do with R is use it as a calculator by typing
+some *commands* straight into the console and pressing *enter*. For
+example:
+
+```{r}
+#Addition 
+23+5
+
+#Subtraction
+12-4
+
+#Multiplication
+23*4
+
+#Division
+45/3
+
+#Exponentiate numbers: raising a number to the power of another
+3^4
+
+#Integer Division: the division result is rounded to the nearest whole number
+46%/%4
+
+#Modulo: the remainder after integer division
+46%%4
+```
+
+We can also perform complex calculations by combining different
+arithmetic operations into one expression. For example:
+
+```{r}
+2 + 6 * 10 - 5 
+```
+
+After running this calculation we get 57. Now write the expression above
+a little differently and let's see the result:
+
+```{r}
+2 + 6 * (10 - 5) 
+```
+
+This time we got 32. Why? This is because what is inside a parenthesis
+(round brackets) takes priority! <br> The R language uses the same order
+of precedence as every other computer language, which luckily for us is
+the same one we all learned in maths at school.The order of precedence
+used is:
+
+1.  Exponents and roots ("taking powers")
+
+2.  Multiplication and division
+
+3.  Addition and subtraction
+
+An easy mnemonic to remember the order R performs calculations is the
+**BODMAS** rules: B -- Brackets, O -- order, D -- divide, M -- multiply,
+A -- add, S -- subtract
+
+## R mathematical expressions
+
+Since we are in the topic of mathematical operations below is a list
+with some basic built-in mathematical functions you can use in R:
+
+-   `sqrt(x)`: Returns the square root of the input value.\
+    <br> Example:
+
+```{r}
+sqrt(467)
+```
+
+-   `abs(x)`: Returns the absolute value.\
+    <br> Example:
+
+```{r}
+abs(-32)
+```
+
+-   `floor(x)`: Returns the largest integer which is greater than or
+    equal to the input value.\
+    <br> Example:
+
+```{r}
+floor(34.56) #rounds down to the nearest integer
+
+#You can also combine expressions:
+floor(sqrt(476))
+```
+
+-   `ceiling(x)`: Returns the smallest integer which is larger than or
+    equal to the input value.\
+    <br> Example:
+
+```{r}
+ceiling(sqrt(476)) #rounds up to the nearest integer
+```
+
+-   `round(x)`: Returns round value of input.\
+    <br> Example:
+
+```{r}
+round(sqrt(476))
+
+#We can also specify the number of significant digits 
+round(sqrt(476), digits=2)
+```
+
+-   `sin(x)`, `cos(x)`, `tan(x)`: Returns the sin(x), cos(x), and
+    tan(x).
+
+<br> Example:
+
+```{r}
+sin(34)
+```
+
+Since the above calculation produces a number with many decimal points
+we can reduce them by using the round() function.\
+<br> Example:
+
+```{r}
+round(sin(34), dig=2)
+```
+
+-   `exp(x)`: Returns the exponent of the input value (natural
+    exponential function).\
+    <br> Example:
+
+```{r}
+exp(5)
+```
+
+<br>
+
+-   `log10(x)`, `log2(x)`: Returns the common logarithm (base10) and the
+    logarithm (base2) respectively of the input value. <br>
+-   `log(x)`: Returns the natural logarithm (base e) of the input value
+
+<br> An example on how to use some of the above expressions is given
+below. Feel free to try on your own
+
+```{r}
+#Natural logarithm
+log(10^5)
+
+#Common algorithm
+log10(10^5)
+```
+
+We can also use special symbols to denote mathematical expressions. For
+example: `pi` for mathematical $\pi$. <br> Example:
+
+```{r}
+pi/2 + sqrt(3)
+```
+
+`i` for illogical (complex) numbers
+
+```{r}
+3i + 54
+```
+
+<br> That was fun, but R can do much more than being a simple
+calculator! In the following sections we will explore ways to use R to
+make the most out of our data.
+
+## Storing and reusing results
+
+Previously we did some simple mathematical calculations. However, the
+results of those calculations was not stored anywhere. If you want to
+store a specific value or the result of an operation in R so they are
+available to use later, you need to use the **assignment** operator `<-`
+which consists of two separate characters `<` and `-` with no space
+between them. This assignment operator is rather unique to R but in most
+cases we can also use `=` as an assignment operator which is similar to
+other programming languages. <br> Lets see some simple examples:
+
+```{r}
+a <- 5
+
+b <- 8
+```
+
+So what happened there? We asked R to first evaluate the expression on
+the right hand side of each `<-` (just a number in this case) and then
+associate the result of that evaluation to a **variable** called `a` and
+`b` respectively. Now type the letter `a` into the console and hit
+Enter:
+
+```{r}
+a
+```
+
+It looks as if we typed the number `5` directly to the console. Try the
+same for variable `b`. Hopefully you got the number `8` appearing in the
+console. <br> We can now use variables `a` and `b` to do different
+mathematical calculations. To save the results of those calculations we
+need to assign them to new variables. E.g.
+
+```{r}
+c <- a + b
+
+# Print result in console
+c
+```
+
+```{r}
+d <- 2*a + b^3 -log(a)
+
+#Print result in console
+d
+```
+
+We can also *modify* the value of a variable. E.g.
+
+```{r}
+a <- 10
+```
+
+Now print the value of `a` in the console. You will see it has changed
+to `10` instead of `5` earlier. <br> You need to be careful not to
+modify a variable accidentally as you may get unexpected results.
+
+## R Naming Rules
+
+To name a variable in R we can use any sequence of alphanumeric symbols
+(letters and numbers), as well as the symbols `.` and`_`, with the
+restriction that a name must start with `.` or a letter, and if it
+starts with `.` the second character must NOT be a digit. <br> Both
+upper and lower case letters are allowed. <br> For example, `exam_1`,
+`exam.1`, `exam1`, `EXAM1`, `myExam1` are all perfectly acceptable
+names, but `1exam` and `_exam1` are not because they begin with `1` and
+`_`. <br> Also, make sure the names assigned to a variable make sense.
+It will help you decipher what this variable is about. <br> Finally,
+refrain from using "reserved" words to name your variables. For instance
+`TRUE`, `FALSE`, `repeat`, `while`, `if`, `else`, `for`, are some
+examples of "reserved" words already being used by R.
+
+### R Case Sensitivity
+
+R is case sensitive so `a` and `A` for instance correspond to different
+variables. The same is true for `data` and `Data` for example. <br>
+
+```{=html}
+<style>
+div.orange { background-color:#fff9e6; border-radius: 5px; padding: 20px;}
+</style>
+```
+<div class = "orange">
+
+⚠️**CAUTION**: Although as mentioned above we are allowed to start a
+name with `.` this is usually a BAD IDEA!. A variable starting with a
+period is hidden by default; the value it refers to exists but it's
+invisible. While it can be useful in certain cases, it is outside the
+scope of this course.
+
+## The Global Environment
+
+Whenever we perform an assignment in the Console the variable created is
+placed into the **Global Environment**. The current set of variables are
+all listed in the **Environment** tab in RStudio. Assuming that at least
+one variable has been created, there will be two columns in the
+Environment tab. The first shows the names of all the variables, while
+the second shows their values. <br>
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+```
+<div class = "blue">
+
+⚠️**ATTENTION** If we quit the R and R Studio session which is currently
+running and reopen it the Global Environment will be empty. Later on we
+will learn how to save the Global Environment to allow us to access it
+any time we want.
+
+## Using Functions in R
+
+Until now we have not done anything too complicated in R. Yet we already
+learned how to use some of the *functions* available in R to perform
+some mathematical calculations.<br> **A function is defined as the basic
+building block of any programming language which allows us to perform
+complex calculations or computations in a single line.** <br> Therefore,
+to use R effectively, even for relatively simple tasks we need to make
+ourselves familiar with the concept of functions.
+
+Functions are particularly useful for performing repetitive tasks while
+providing us with the flexibility to retain some control over the
+precise details of what is actually happening. To do this we need to
+provide *arguments*. <br> To better illustrate this we will look at some
+examples of the built-in functions we already encountered earlier.
+
+Let's take the example of the `round()` function which is used to round
+one (or more) numbers to a significant number of digits.
+
+```{r}
+round(x=pi, digits=2)
+```
+
+To use the function above we need to call the function name followed by
+round brackets (**()**), where we put the arguments.<br> - The first
+argument is the input data x, i.e. the number(s) we want to round.
+<br> - The second argument is the number of significant digits we want
+to retain. <br> To set the value for each argument we use the `(=)`
+symbol (x = pi, digits = 2). <br> Under the hood the function consists
+of some lines of code which perform the calculation we want to do given
+the specific arguments we have provided.
+
+## Built-in R Functions
+
+Apart from the mathematical built-in function we encountered earlier, R
+has a number of built-in functions which allow us to perform the basic
+tasks. The schema below illustrates the types of built-in function R
+provides.
+
+![Built-In Functions
+Schema](Pictures%20for%20RMarkdown%20Docs/r-built-in-functions.png){fig-align="right"
+width="70%"} <br><br> This is for reference only at this point. In the
+next tutorials we will learn to use some of these functions for
+different tasks. We will also learn how to make functions from scratch,
+which will give you a good idea what is happening behind the scenes!
+
+## Creating Scripts in R
+
+Working directly in the Console is not recommended. To save your work
+and be able to repeat the analysis or edit it you should create a
+"script". A script is essentially a text file where we put our sequence
+of R expressions which are instructions telling the computer what to do.
+<br> To create a new script in R go to `File > New File` and select the
+type of file you want to create. E.g. `R Script` or `R Markdown`. This
+will open the new file in a fourth pane. This pane is the **Source Code
+Editor**. <br> To save the new script go to `File > Save As` and save
+the file in the folder of your choice. <br> To customise the appearance
+of your text editor, you can go to `Tools > Global Options > Appearance`
+and choose the font, theme etc. that you like. <br><br>
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+```
+<div class = "blue">
+
+*Important to Remember:* When we work with a script we type the required
+sequence of R expressions into the Editor pane, not directly into the
+Console. Also switching between the Editor and the Console is highly
+discouraged as it can lead to non-functional script.
+
+## Setting the working directory
+
+When creating an new R or Rmd script one of the first things to do is
+set your *working directory*. There are several ways you can do this.
+For example click on `Session` `Set Working Directory`
+`Choose Directory` or go to the bottom right panel in R Studio click on
+`Files`and navigate to the Folder you want to set as working directory.
+Then click on the *cog* icon and select `Set as Working Directory` from
+the drop down menu. <br><br>
+![](Pictures%20for%20RMarkdown%20Docs/working_directory.png){fig-align="right"
+width="80%"} <br><br> Finally you can set the working directory by
+typing `setwd()` and providing the path to the folder you want to set as
+working directory. For example:
+
+```{r, eval=FALSE}
+knitr::opts_knit$set(root.dir = "~/Bioinformatics_MSc/Teaching/Academic Year 2024-2025/Soils Mastership/Tutorials")
+```
+
+⚠️ **Caution** The above path works only on my computer! You need to
+provide the specific path to your working directory.
+
+To check which is your current working directory you can type `getwd()`.
+Try it for yourselves.
+
+The next step is to clear your working environment from any previous
+objects and graphics.
+
+```{r}
+# Clear working Environment
+rm(list=ls())
+
+# Close graphics devices
+graphics.off()
+```
+
+## Loading additional packages
+
+As we mentioned in our course introduction, R has thousands of
+additional packages (libraries) which can be installed via
+`installed.packages()`and subsequently loaded every time you execute a
+script.
+
+```{r, eval=FALSE}
+#Load an R package
+library(car)
+```
+
+Or alternatively:
+
+```{r, eval=FALSE}
+require(car)
+```
+
+## Sourcing additional Functions
+
+When you get more proficient in R and start creating your own function
+you will realise that keeping them in your main script is not a good
+idea as it makes things messy. In this case it is advised to save your
+function in a separate R script and "source" them when running the main
+script containing your analysis. To source a script you use the function
+`source()` with the name of the script inside the round brackets.\
+<br> For example:
+
+```{r, eval=FALSE}
+source("MyFunction.r")
+```
+
+This action will make the functions you sourced available for your
+analysis.
+
+## Accessing Help in R
+
+R has an inbuilt help facility which allow us to get information on
+functions and features. To use the R help facility to get more
+information on any specific function, we can write:
+
+```{r, eval=FALSE}
+help ("sample")
+```
+
+Or alternatively you can write:
+
+```{r, eval=FALSE}
+?sample
+```
+
+The information for this function will appear in the right bottom pane
+in RStudio.
+
+## Commenting your code
+
+When creating your scripts it is very important to add comments.
+Comments in R always start with a `#` symbol. Lines that start with \#
+are completely ignored by R when the code is executed, but they are very
+helpful to keep track of the analysis process and explain the logic
+behind each step. So, don't forget comments!!
+
+## Errors
+
+One of the most scary things that can happen when you are a beginner in
+R and programming in general, is having an error. In R errors are
+displayed in the form or a message in red font which appear in the
+console when we execute a piece of code. Error messages can cause a bit
+of a panic especially when we have no idea what they mean. Don't worry
+this happens to the most experienced R users.
+
+Let's see a simple example:
+
+```{r}
+#Define variable z:
+z<-23 + 565*exp(-2)
+
+#print z in the console
+z
+```
+
+The next step is to use the variable z you created above in a new
+mathematical expression
+
+```{r}
+#y <- 45 + log(Z-5)
+```
+
+You should see an error message saying: "Error: object 'Z' not found".
+Any ideas what this means?
+
+Let's sort this error and try again:
+
+```{r}
+y <- 45 + log(z-5)
+
+#print y
+y
+```
+
+Always **read the error messages**. They might be confusing at first,
+but they will eventually start to make some sense and point you to the
+right direction.
+
+## Writing you first script
+
+**Exercise**: In this exercise you are required to create a script to
+solve a second order equation. <br> A second order equation is written
+as:<br>
+![quadratic_equation](Pictures%20for%20RMarkdown%20Docs/quadratic_equation.png){fig-align="center"
+width="70%"}
+
+And the solution to this equation is given by the following mathematical
+formula:
+
+![](Pictures%20for%20RMarkdown%20Docs/quadratic_solution.png){fig-align="center"
+width="70%"}
+
+```{r}
+#The values for a, b, and c are given below
+a <- 2
+b <- 5
+c <- 3
+
+# Write the expression for the first solution and save it under variable x1
+
+
+# Write the expression for the second solution and save it under variable x2
+ 
+
+
+```
+
+Now print the solutions (if they exist) in the console:
+
+```{r}
+# Print the solutions x1 and x2 in the console. 
+paste("solution 1 is x1 =" )   # Fill in the missing variable
+
+
+paste("solution 2 is x2 =" )   # Fill in the missing variable
+```
+
+```{=html}
+<style>
+div.blue { background-color:#e6f0ff; border-radius: 5px; padding: 20px;}
+</style>
+```
+::: blue
+### Final Note: Syntax Highliting.
+
+As you have already noticed by now, when we create an R script, parts of
+the R code is formatted by colour. This is called **syntax
+highlighting** and is a must have feature of any Editor. The purpose of
+syntax highlighting is to draw attention to different components of
+syntax. Depending on the Font option you have selected, RStudio uses
+different colours to display variables, parentheses, arithmetic
+operators, and numbers, which makes it much easier when reviewing a
+script.
+:::
+
+## Managing Data
+
+### Inspecting the workspace
+
+We can use the function `ls()` to print a list of all the variables
+present in the workspace.
+
+```{r}
+ls()
+```
+
+### Removing variables
+
+Occasionally you might want to remove a variable from your Global
+Environment. We can do this using the `rm()` function
+
+```{r, warning=FALSE}
+rm(a)
+```
+
+We can also remove several variables at once.
+
+```{r, warning=FALSE}
+rm(list=c("a", "b", "c"))
+```
+
+To check if this has worked use the `ls()` function again. Are variables
+`a`, `b` and `c` present in your workspace?
+
+You can also combine the `rm()` and `ls()` functions in order to clear
+the entire workspace.
+
+```{r, warning=FALSE}
+rm(list=ls())
+```
+
+### Saving data structures
+
+The `save()` function saves one or more data structures to a file:
+
+```{r}
+#save(x, y, z, file = "mydata.Rdata")
+```
+
+The load() command can recreate any data structures saved with `save()`.
+
+```{r}
+#load("mydata.RData")
+```
+
+### Saving the Workspace
+
+If we want to save the entire workspace so that it is available to carry
+on working next time we open RStudio, we can use the `save.image()`
+function.
+
+```{r}
+save.image(file='MyScript.Environment.RData')
+```
+
+Then you can load again the workspace using the `load()` function as
+earlier.
+
+## Importing Data in R
+
+Although we can create some small datasets within R, this is not the
+most efficient way to work with data. In the majority of situations, you
+will need to access your data from different sources depending if they
+are experimental data, publicly available data, survey results and so
+on. Luckily, R is able to access data from a huge range of different
+data storage formats and repositories. We can use R to pull in data from
+various databases, proprietary storage formats (e.g. Excel), online web
+sites, or plain text files. For the purpose of this course we will only
+examine the simplest method for data import: reading in data from a text
+file, namely **.txt** and **.csv** formats.
+
+Before we proceed, we need to make sure that we have set our working
+directory, as this is where R will be looking to import the data from.
+In the previous section we already learned how to set the working
+directory and how to check which is the current working directory.
+
+The main function in R for importing text files is `read.table()`. This
+function reads a file in table format and creates a data frame from it.
+The main syntax for this function is depicted in the schema below:
+![table_import](Pictures%20for%20RMarkdown%20Docs/read_table.png)
+
+**Example**: Let's see an example to understand how this works in
+practice. You have been supplied with a csv file named
+**honey_sugar.csv** which contains the sugar content(%) and water
+content(%) of 54 honey samples from across the UK. We want to import
+this file into R so we can carry on some data analysis.
+
+```{r}
+honey.data <- read.table("Data/honey_sugar.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
+```
+
+The most common text files you will encounter and their separators are
+the following:
+![import_text_files](Pictures%20for%20RMarkdown%20Docs/read_text.png)
+
+**Importing CSV files with `read.csv()`** For CSV you can also use the
+`read.csv()` function.
+
+```{r, eval=FALSE}
+honey.data <- read.csv("Data/honey_sugar.csv", sep = ",", header = TRUE, stringsAsFactors = FALSE)
+```
+
+**NOTE** If we haven't set the working directory, we will need to give
+the full path to the folder our data file is located. However, this is
+not recommended.
+
+### Exporting tables from R
+
+Conveniently we can also export tables that we created or modified in R
+and save them in a local folder. We can use the `write.table()` function
+or alternatively the `write.csv()` function specifically for exporting
+csv files.
+
+```{r}
+write.table(honey.data, file="honey_data.csv", row.names = FALSE)
+```
+
+⚠️**IMPORTANT** In the previous example we set the argument for
+`row.name = FALSE`. If you don't do this R will most probably add
+another column with sample names which will mess up your dataset.
+
+## Summary
+
+-   Introduction
+-   RMarkdown
+-   Simple Calculations
+-   Mathematical Functions
+-   Creating variables
+-   Creating Scripts
+-   Importing Data in R
