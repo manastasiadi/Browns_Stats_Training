@@ -1,1 +1,1 @@
-# Browns_Stats_Training
+# Data Science for Biologists_Training
